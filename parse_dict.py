@@ -2,17 +2,20 @@ import json
 import re
 import codecs
 
-
+# json dict to load data from
 dict_file =  open('ger_dict.json','r')
 ger_dict = {}
 ger_dict = json.loads(dict_file.read())
 
+# use this as reference to create the new dictionary from
 lines = ''
-with open('Core2.3k Version 3._notestxt.txt', 'r') as f:
+with open('Core2.3k Version 3.txt', 'r') as f:
     lines = f.readlines()
 new_dict = {}
 
 
+# go through the entire dictionary, take the word and the translation 
+# and create a dictionary (python dict type) 
 for line in lines:
   found = False
   found_entries = []
@@ -22,7 +25,7 @@ for line in lines:
   jp_word = split_list[0]
 
   for entry in ger_dict:
-   # print(entry[1])
+    # entry[1] for kana, entry[0] for creating a kanji
     if str(jp_word) == str(entry[1]):
       found = True
       found_entries.append(entry)
@@ -35,7 +38,7 @@ for line in lines:
         print(found_entries)
   
 
-
+# adjust this to create new dictionary
 with open('new_dict_kana.json', 'w', encoding='utf-8') as f:
     # this would place the entire output on one line
     # use json.dump(lista_items, f, indent=4) to "pretty-print" with four spaces per indent
